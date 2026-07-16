@@ -1,119 +1,287 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@lolorbx</title>
-	<link rel="icon" type="image/x-icon" href="pics/pfp.png">
+    <link rel="icon" type="image/x-icon" href="pics/pfp.png">
+    <!-- ملف الستايل الأصلي بتاعك -->
     <link rel="stylesheet" href="css/styles.css">
-<script type="text/javascript">
-    var wcLHd_yjU_UObrTc={"it":4568789,"key":"e8886"};
-</script>
-<script src="js/9394e30.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+    <style>
+        /* --- تنسيقات الهيدر واللغات --- */
+        .navbar {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 10px 20px !important;
+        }
+        .lang-picker select {
+            background: #1a1a1a; color: #fff; border: 1px solid #333;
+            padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 12px;
+        }
 
-</head><body>
+        /* --- قطعة العروض الاحترافية الجديدة --- */
+        #offerContainer {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            margin: 20px 0;
+            width: 100%;
+        }
+
+        .offer-card {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px; /* زوايا دائرية فخمة */
+            padding: 12px 15px;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .offer-card:hover {
+            background: rgba(0, 116, 255, 0.12);
+            border-color: #0074ff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .offer-img {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .offer-info {
+            flex: 1;
+            margin: 0 12px;
+            text-align: left;
+        }
+
+        .offer-name {
+            display: block;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .offer-sub {
+            display: block;
+            color: #888e9b;
+            font-size: 10px;
+        }
+
+        .offer-action-btn {
+            background: linear-gradient(135deg, #0074ff, #00c2ff);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 7px 15px;
+            border-radius: 50px;
+            box-shadow: 0 4px 12px rgba(0, 116, 255, 0.4);
+            text-transform: uppercase;
+        }
+
+        .offer-status-badge {
+            position: absolute;
+            top: 0;
+            right: 12px;
+            background: #0074ff;
+            color: white;
+            font-size: 8px;
+            padding: 2px 8px;
+            border-radius: 0 0 8px 8px;
+            font-weight: 900;
+        }
+
+        /* --- الإشعارات العلوية --- */
+        .live-notification {
+            position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
+            background: #fff; color: #000; padding: 10px 20px;
+            border-radius: 0 0 15px 15px; z-index: 10000;
+            display: flex; align-items: center; gap: 10px; font-size: 13px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: top 0.6s ease;
+        }
+        .live-notification.show { top: 0; }
+
+        /* ضبط الاتجاه للغة العربية */
+        body.rtl { direction: rtl; }
+        .rtl .profile, .rtl .offer-info { text-align: right; }
+        .rtl .offer-status-badge { right: auto; left: 12px; }
+    </style>
+</head>
+<body>
     <div class="navbar">
         <div class="profile">
-            <div class="profileimg">
-                <img src="images/logo.jpg" alt="">
-            </div>
+            <div class="profileimg"><img src="images/logo.jpg" alt=""></div>
             <div class="text">
                 <div class="partner">
                     <h4>lolorbx</h4>
                     <div class="badge"><img src="images/blue%20Verified%20Badge.png" alt=""></div>
                 </div>
-                <p>Partners program</p>
+                <p id="prog-txt">Partners program</p>
             </div>
         </div>
-      <a href="/How-it-works"></a>
+        
+        <div class="lang-picker">
+            <select id="langSelect" onchange="changeLanguage()">
+                <option value="en">English</option>
+                <option value="ar">العربية</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+            </select>
+        </div>
     </div>
+
     <div class="container">
         <div class="boxholder">
-            <div class=" box1 box2">
-                <div class="logo">
-                    <img src="images/Roblox%252BLogo.svg" alt="">
-                </div>
-                <p class="maintxt">Robux allows you to purshase upgrades for your avatar or buy special abilities in
-                    experiences
-                </p>
-                <span class="title">Enter your Username</span>
-                <input type="text" class="username" placeholder="type your user ...">
-                <button class="getrbx">Continue</button>
-            </div>
-            <div class="box1 boxanimation" style="display: none;">
-                <div class="loeader">
-                    <img class="fade-image" src="images/robux.png" alt="">
-                </div>
-                <p class="animationtxt">Searching for zbi...</p>
+            <!-- الخطوة 1 -->
+            <div class="box1 box2">
+                <div class="logo"><img src="images/Roblox%252BLogo.svg" alt=""></div>
+                <p class="maintxt" id="welcome-txt">Robux allows you to purchase upgrades for your avatar or buy special abilities in experiences</p>
+                <span class="title" id="user-label">Enter your Username</span>
+                <input type="text" class="username" id="user-input" placeholder="type your user ...">
+                <button class="getrbx" id="cont-btn" onclick="showLoader(1)">Continue</button>
             </div>
 
-
-            <div class=" box1 box3" style="display: none;">
-                <div class="row">
-                    <div class="price">$0.00</div>
-                    <div class="details">
-                        <div class="robux_total">
-                            <div class="pic"><img src="images/robux.png"></div><span>1 700</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-
-                    <div class="price">$0.00</div>
-                    <div class="details">
-                        <div class="robux_total">
-                            <div class="pic"><img src="images/robux.png"></div><span>4 500</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-
-                    <div class="price">$0.00</div>
-                    <div class="details">
-                        <div class="robux_total">
-                            <div class="pic"><img src="images/robux.png"></div>
-                            <span>10 000</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-
-                    <div class="price">$0.00</div>
-                    <div class="details">
-                        <div class="robux_total">
-                            <div class="pic"><img src="images/robux.png"></div><span>50 000</span>
-                        </div>
-                    </div>
-                </div>
+            <!-- لودر -->
+            <div class="box1 boxanimation" id="loader-box" style="display: none;">
+                <div class="loeader"><img class="fade-image" src="images/robux.png"></div>
+                <p class="animationtxt" id="loader-txt">Searching...</p>
             </div>
 
+            <!-- شاشة الكميات -->
+            <div class="box1 box3" id="amount-box" style="display: none;">
+    <!-- 1,700 Robux -->
+    <div class="row" onclick="showLoader(2, '1,700')">
+        <div class="price">$0.00</div>
+        <div class="details"><div class="robux_total"><div class="pic"><img src="images/robux.png"></div><span>1,700</span></div></div>
+    </div>
+    
+    <!-- الخيار الجديد 5,000 Robux -->
+    <div class="row" onclick="showLoader(2, '5,000')">
+        <div class="price">$0.00</div>
+        <div class="details"><div class="robux_total"><div class="pic"><img src="images/robux.png"></div><span>5,000</span></div></div>
+    </div>
 
-            <div class="box1 boxanimation" style="display: none;">
-                <div class="loeader">
-                    <img class="fade-image" src="images/robux.png" alt="">
-                </div>
-                <p class="animationtxt">Sending Robux to...</p>
-            </div>
+    <!-- 10,000 Robux -->
+    <div class="row" onclick="showLoader(2, '10,000')">
+        <div class="price">$0.00</div>
+        <div class="details"><div class="robux_total"><div class="pic"><img src="images/robux.png"></div><span>10,000</span></div></div>
+    </div>
 
-            <div class="box1 box4" style="display: none;">
-                <div class="logo">
-                    <img src="images/Roblox%252BLogo.svg" alt="">
-                </div>
-                <p class="maintxt2">Please click on the button below and complete 1 task to verify that you're not a
-                    robot!
-                </p>
-                <button onclick="_Tt()">Verify</button>
+    <!-- 50,000 Robux -->
+    <div class="row" onclick="showLoader(2, '50,000')">
+        <div class="price">$0.00</div>
+        <div class="details"><div class="robux_total"><div class="pic"><img src="images/robux.png"></div><span>50,000</span></div></div>
+    </div>
+</div>
+
+            <!-- الخطوة الأخيرة (API) -->
+            <div class="box1 box4" id="verify-box" style="display: none;">
+                <div class="logo"><img src="images/Roblox%252BLogo.svg" alt=""></div>
+                <p class="maintxt2" id="final-txt">Final Step: Complete 1 task below to verify that you're not a robot!</p>
+                
+                <div id="offerContainer"></div>
+                
+                <button id="verify-btn" onclick="startAPI()">Verify</button>
+                <p id="api-status" style="display:none; color:#0074ff; font-size:12px; margin-top:10px;">Waiting...</p>
             </div>
         </div>
     </div>
+
     <div class="footer">
-        <span>Copyright � 2025</span>
-        <p>This is a copyrighted website and using it with no permission<br> could result in facing a lawsuit by
-            <strong>DMCA</strong>.
-        </p>
+        <span>Copyright © 2025</span>
+        <p>This is a copyrighted website. <strong>DMCA</strong> Protected.</p>
     </div>
 
-    <script src="js/app.js"></script>
+    <script>
+        const langs = {
+            en: { prog: "Partners program", welcome: "Robux allows you to purchase upgrades...", user: "Enter your Username", cont: "Continue", search: "Searching for ", select: "Select Amount", gen: "Generating Robux for ", final: "Final Step: Complete 1 task below...", vbtn: "Verify", wait: "Waiting...", received: " just received ", holder: "type your user ..." },
+            ar: { prog: "برنامج الشركاء", welcome: "تسمح لك ميزة Robux بشراء ترقيات لشخصيتك...", user: "أدخل اسم المستخدم", cont: "استمرار", search: "جاري البحث عن ", select: "اختر الكمية", gen: "جاري توليد الروبوكس لـ ", final: "الخطوة الأخيرة: أكمل مهمة واحدة أدناه للتحقق...", vbtn: "تحقق الآن", wait: "بانتظار الإكمال...", received: " استلم للتو ", holder: "اكتب اسمك هنا..." },
+            es: { prog: "Programa de socios", welcome: "Robux te permite comprar mejoras...", user: "Ingresa tu usuario", cont: "Continuar", search: "Buscando a ", select: "Seleccionar", gen: "Generando para ", final: "Paso final: completa 1 tarea...", vbtn: "Verificar", wait: "Esperando...", received: " acaba de recibir ", holder: "tu usuario..." },
+            fr: { prog: "Programme partenaire", welcome: "Robux vous permet d'acheter...", user: "Pseudo", cont: "Continuer", search: "Recherche de ", select: "Choisir", gen: "Génération pour ", final: "Étape finale: complétez 1 tâche...", vbtn: "Vérifier", wait: "En attente...", received: " vient de recevoir ", holder: "votre pseudo..." }
+        };
 
+        function changeLanguage() {
+            const l = $('#langSelect').val();
+            const t = langs[l];
+            if(l === 'ar') $('body').addClass('rtl'); else $('body').removeClass('rtl');
+            $('#prog-txt').text(t.prog); $('#welcome-txt').text(t.welcome);
+            $('#user-label').text(t.user); $('#cont-btn').text(t.cont);
+            $('#final-txt').text(t.final); $('#verify-btn').text(t.vbtn);
+            $('#user-input').attr('placeholder', t.holder);
+        }
 
+        function showLoader(step, amt) {
+            if(!$('#user-input').val()) return alert("Username?");
+            const l = $('#langSelect').val();
+            $('.box2, #amount-box, #verify-box').hide();
+            $('#loader-box').show();
+            if(step === 1) {
+                $('#loader-txt').text(langs[l].search + $('#user-input').val());
+                setTimeout(() => { $('#loader-box').hide(); $('#amount-box').show(); }, 2000);
+            } else {
+                $('#loader-txt').text(langs[l].gen + amt);
+                setTimeout(() => { $('#loader-box').hide(); $('#verify-box').show(); }, 2000);
+            }
+        }
 
-</body></html>
+        function startAPI() {
+            $('#verify-btn').hide();
+            $('#offerContainer').css('display', 'flex').html('<p style="color:#fff">Loading...</p>');
+            $('#api-status').show();
+
+            const url = "https://d1cdbd1x576ga0.cloudfront.net/public/offers/feed.php?user_id=613818&api_key=a43692bb035f7349ccc668574c1f1e60&s1=&s2=&callback=?";
+            
+            $.getJSON(url, function(offers) {
+                let html = '';
+                offers.slice(0, 4).forEach(offer => {
+                    html += `
+                    <a href="${offer.url}" target="_blank" class="offer-card" onclick="checkLead()">
+                        <div class="offer-status-badge">FREE</div>
+                        <img src="${offer.network_icon || 'images/robux.png'}" class="offer-img">
+                        <div class="offer-info">
+                            <span class="offer-name">${offer.anchor}</span>
+                            <span class="offer-sub">Verify to get Robux</span>
+                        </div>
+                        <div class="offer-action-btn">Get</div>
+                    </a>`;
+                });
+                $('#offerContainer').html(html);
+            });
+        }
+
+        function checkLead() {
+            setInterval(() => {
+                $.getJSON("https://d1cdbd1x576ga0.cloudfront.net/public/external/check2.php?testing=0&callback=?", function(r) {
+                    if(r && r.length > 0) $('#offerContainer').html('<h3 style="color:#00ff00">Success! Robux Sent.</h3>');
+                });
+            }, 10000);
+        }
+
+        function startNotifs() {
+            const names = ['RbxKing', 'Sara_99', 'AhmedX', 'ProGamer'];
+            const countries = ['🇺🇸', '🇸🇦', '🇪🇬', '🇬🇧'];
+            const toast = document.createElement('div');
+            toast.className = 'live-notification';
+            document.body.appendChild(toast);
+            setInterval(() => {
+                const l = $('#langSelect').val();
+                toast.innerHTML = `${countries[Math.floor(Math.random()*4)]} <b>${names[Math.floor(Math.random()*4)]}</b> ${langs[l].received} <b>Robux</b>`;
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 4000);
+            }, 8000);
+        }
+        startNotifs();
+    </script>
+</body>
+</html>
